@@ -1,0 +1,108 @@
+<html>
+<head>
+	<title>Custom pagination</title>
+	<style>
+	.center {
+		text-align: center;
+	}
+
+	.pagination {
+		display: inline-block;
+	}
+
+	.pagination a {
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+		transition: background-color .3s;
+		border: 1px solid #ddd;
+		margin: 0 4px;
+	}
+
+	.pagination a.active {
+		background-color: #4CAF50;
+		color: white;
+		border: 1px solid #4CAF50;
+	}
+
+	.pagination a:hover:not(.active) {background-color: #ddd;}
+
+	.a-hidden{
+		display: none;
+	}
+	</style>
+</head>
+<body>
+
+	<h2>Pagination</h2>
+	<div class="center">
+		<div class="pagination">
+			<a href="#" class="left">&laquo;</a>
+			<a href="#" class="a-1 a-hidden first">1</a>
+			<a href="#" class="a-2 a-hidden">2</a>
+			<a href="#" class="a-3 a-hidden">3</a>
+			<a href="#" class="a-4 a-hidden">4</a>
+			<a href="#" class="a-5 a-hidden">5</a>
+			<a href="#" class="a-6 a-hidden">6</a>
+			<a href="#" class="a-7 a-hidden">7</a>
+			<a href="#" class="a-8">8</a>
+			<a href="#" class="a-9 active">9</a>
+			<a href="#" class="a-10">10</a>
+			<a href="#" class="a-11">11</a>
+			<a href="#" class="a-12">12</a>
+			<a href="#" class="a-13">13</a>
+			<a href="#" class="a-14">14</a>
+			<a href="#" class="a-15 a-hidden">15</a>
+			<a href="#" class="a-16 a-hidden last">16</a>
+			<a href="#"  class="right">&raquo;</a>
+		</div>
+	</div>
+</body>
+</html>
+<!-- Javascript -->
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+
+$('.pagination a').click(function(){
+	if ($(this).hasClass('left')) {
+		previous();
+	}else if($(this).hasClass('right')){
+		next();
+	}else {
+		$(this).addClass('active');
+	}
+
+});
+
+function next(){
+	var currentIndex = Number($('.pagination a.active').text());
+	var removeIndex = '.pagination a.a-' + currentIndex;
+	if (currentIndex != 0 && !$(removeIndex).hasClass('last')) {
+		console.log('Apertou right');
+		console.log('currentIndex: ' + currentIndex);
+		console.log('NextIndex: ' + (currentIndex + 1));
+
+		var addIndexName = '.pagination a.a-' + (currentIndex + 1);
+		$(addIndexName).addClass('active');
+
+		
+		$(removeIndex).removeClass('active');
+	}
+}
+
+function previous(){
+	var currentIndex = Number($('.pagination a.active').text());
+	var removeIndex = '.pagination a.a-' + currentIndex;
+	if (currentIndex != 0 && !$(removeIndex).hasClass('first')) {
+		console.log('Apertou left');
+		console.log('currentIndex: ' + currentIndex);
+		console.log('PreviousIndex: ' + (currentIndex - 1));
+
+		var removeIndexName = '.pagination a.a-' + (currentIndex - 1);
+		$(removeIndexName).addClass('active');
+		$(removeIndex).removeClass('active');
+	}
+}
+
+</script>
